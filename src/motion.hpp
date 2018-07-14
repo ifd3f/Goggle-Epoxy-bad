@@ -36,6 +36,15 @@ namespace epoxy {
             virtual double getZ() = 0;
 
             Eigen::Vector3d getVector();
+            Eigen::Vector4d getVector4();
+        };
+
+        class DummyVectorOutput : public motion::VectorOutput {
+        public:
+            double x, y, z;
+            double getX() override;
+            double getY() override;
+            double getZ() override;
         };
 
         class OrientationIntegrator : public scheduler::Command {

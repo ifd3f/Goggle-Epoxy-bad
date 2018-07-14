@@ -14,6 +14,10 @@ Eigen::Vector3d VectorOutput::getVector() {
     return Eigen::Vector3d(getX(), getY(), getZ());
 }
 
+Eigen::Vector4d VectorOutput::getVector4() {
+    return Eigen::Vector4d(getX(), getY(), getZ(), 1);
+}
+
 Eigen::Quaterniond getOrientation(Eigen::Vector3d down, Eigen::Vector3d north) {
     down.normalize();
     north.normalize();
@@ -41,4 +45,16 @@ void OrientationIntegrator::update(int dt) {
     auto a_hat = getOrientation(accel->getVector(), mag->getVector());
 
     state = (state * dr).slerp(compensation, a_hat);
+}
+
+double DummyVectorOutput::getX() {
+    return x;
+}
+
+double DummyVectorOutput::getY() {
+    return y;
+}
+
+double DummyVectorOutput::getZ() {
+    return z;
 }

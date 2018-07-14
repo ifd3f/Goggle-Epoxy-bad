@@ -7,8 +7,7 @@ namespace epoxy {
     namespace devices {
         class L3GD20 : public motion::Gyro, public scheduler::Command {
             int fd;
-            char addr;
-            char scaleByte;
+            char addr, scaleByte;
             double scaleValue;
             double x, y, z;
         public:
