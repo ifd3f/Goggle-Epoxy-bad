@@ -3,12 +3,12 @@ namespace epoxy {
 
         class Barometer {
         public:
-            virtual double getPresure() = 0;
+            virtual double getPressure() = 0;
         };
 
         class Altimeter {
         public:
-            virtual double getAltimeter() = 0;
+            virtual double getAltitude() = 0;
         };
 
         class Thermometer {

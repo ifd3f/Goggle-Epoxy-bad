@@ -8,29 +8,29 @@ namespace epoxy {
 
         class Command {
             CommandState state;
-            public:
-                Command();
-                virtual void initialize() { };
-                virtual void update(int dt) { };
-                virtual bool shouldTerminate() { return false; };
-                virtual void terminate() { };
+        public:
+            Command();
+            virtual void initialize() { };
+            virtual void update(int dt) { };
+            virtual bool shouldTerminate() { return false; };
+            virtual void terminate() { };
 
-                void setState(CommandState state);
-                CommandState getState();
+            void setState(CommandState state);
+            CommandState getState();
         };
 
         class Scheduler {
-            public:
-                virtual void addCommand(Command *cmd) = 0;
-                virtual void update(int dt) = 0;
+        public:
+            virtual void addCommand(Command *cmd) = 0;
+            virtual void update(int dt) = 0;
         };
 
         class SynchronousScheduler : public Scheduler {
             std::vector<Command*> commands;
-            public:
-                SynchronousScheduler();
-                void addCommand(Command *cmd);
-                void update(int dt);
+        public:
+            SynchronousScheduler();
+            void addCommand(Command *cmd);
+            void update(int dt);
         };
 
     }

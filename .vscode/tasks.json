@@ -6,7 +6,7 @@
         {
             "label": "build-wsl",
             "type": "shell",
-            "command": "bash.exe -c \"make all\"; echo [Done]",
+            "command": "bash -c \"make -j8 all\"",
             "problemMatcher": [
                 "$gcc"
             ],
@@ -18,13 +18,13 @@
         {
             "label": "clean-wsl",
             "type": "shell",
-            "command": "bash.exe -c \"make clean\"; echo [Done]",
+            "command": "bash -c \"make clean\"",
             "problemMatcher": []
         },
         {
             "label": "run-wsl",
             "type": "shell",
-            "command": "bash.exe -c \"./main.out\"; echo [Done]",
+            "command": "bash -c \"./main.out\"",
             "group":{
                 "kind": "test",
                 "isDefault": true

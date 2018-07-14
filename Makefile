@@ -1,9 +1,29 @@
 # Compiler
 CC=g++
+
+SRC = \
+	main \
+	motion \
+	scheduler
+
+SRC_PI = \
+	mpl3115a2
+
+LINKED_LIBS = \
+	boost_system \
+	boost_log \
+	pthread \
+	cairo
+
+LINKED_LIBS_PI = \
+	crypt \
+	wiringPi
+
 # Compiler arguments
-C_ARGS = -I /usr/include/eigen3 -std=c++14 -Wall -g -DBOOST_LOG_DYN_LINK
+C_ARGS = -I /usr/include/eigen3 -std=c++17 -Wall -g -DBOOST_LOG_DYN_LINK
 # Linker arguments
-L_ARGS = -lboost_system -lboost_log -lpthread -lcairo
+L_ARGS = $(LINKED_LIBS:%=-l%)
+L_ARGS_PI = $(L_ARGS) $(LINKED_LIBS_PI:%=-l%)
 
 OUTPUT=main.out
 .DEFAULT_GOAL := all
@@ -11,9 +31,16 @@ OUTPUT=main.out
 build/%.o: directories src/%.cpp
 	$(CC) $(C_ARGS) -c src/$*.cpp -o build/$*.o
 
+.PHONY: link-no-pi
+link-no-pi: $(SRC:%=build/%.o)
+	$(CC) $(SRC:%=build/%.o)$(L_ARGS) -o $(OUTPUT) 
+
+.PHONY: link-all
+link-all: $(SRC:%=build/%.o) $(SRC_PI:%=build/%.o)
+	$(CC) build/*.o $(L_ARGS_PI) -o $(OUTPUT) 
+
 .PHONY: all
-all: build/main.o build/motion.o build/scheduler.o build/devices.o
-	$(CC) build/*.o $(L_ARGS) -o $(OUTPUT) 
+all: link-all
 
 .PHONY: directories
 directories:
