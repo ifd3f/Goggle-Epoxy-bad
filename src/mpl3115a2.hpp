@@ -8,37 +8,9 @@ using namespace epoxy;
 namespace epoxy {
     namespace devices {
 
-        class MPL3115A2;
-
-        class MPL3115A2Altimeter : public weather::Altimeter {
+        class MPL3115A2 : public scheduler::Command, public weather::Altimeter, public weather::Barometer, public weather::Thermometer {
             char addr;
-            MPL3115A2* parent;
-        public:
-            double getAltitude() override;
-            friend class MPL3115A2;
-        };
-
-        class MPL3115A2Barometer : public weather::Barometer {
-            char addr;
-            MPL3115A2* parent;
-        public:
-            double getPressure() override;
-            friend class MPL3115A2;
-        };
-
-        class MPL3115A2Thermometer : public weather::Thermometer {
-            char addr;
-            MPL3115A2* parent;
-        public:
-            double getTemperature() override;
-            friend class MPL3115A2;
-        };
-
-        class MPL3115A2 : public scheduler::Command {
-            MPL3115A2Altimeter altimeter;
-            MPL3115A2Barometer barometer;
-            MPL3115A2Thermometer thermometer;
-            char addr;
+            int fd;
             /**
              * tracks if values have been updated this loop.
              * Bit 8: alt, thm
@@ -53,9 +25,9 @@ namespace epoxy {
             void initialize() override;
             void update(int dt) override;
 
-            weather::Barometer* getBarometer();
-            weather::Altimeter* getAltimeter();
-            weather::Thermometer* getThermometer();
+            double getAltitude() override;
+            double getPressure() override;
+            double getTemperature() override;
 
             friend class MPL3115A2Altimeter;
             friend class MPL3115A2Barometer;

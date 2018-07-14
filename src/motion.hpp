@@ -10,6 +10,9 @@
 
 #include <Eigen/Geometry>
 
+#include "scheduler.hpp"
+
+using namespace epoxy;
 
 namespace epoxy {
     namespace motion {
@@ -35,7 +38,7 @@ namespace epoxy {
             Eigen::Vector3d getVector();
         };
 
-        class OrientationIntegrator {
+        class OrientationIntegrator : public scheduler::Command {
             Gyro *gyro;
             VectorOutput *accel, *mag;
             Eigen::Quaterniond state;
@@ -44,7 +47,7 @@ namespace epoxy {
             OrientationIntegrator(Gyro *gyro, VectorOutput *accel, VectorOutput *mag, double compensation);
 
             void calibrate();
-            void update(double dt);
+            void update(int dt) override;
         };
 
     }

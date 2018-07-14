@@ -36,8 +36,8 @@ void OrientationIntegrator::calibrate() {
 
 }
 
-void OrientationIntegrator::update(double dt) {
-    auto dr = gyro->getDeltaQuaternion(dt);
+void OrientationIntegrator::update(int dt) {
+    auto dr = gyro->getDeltaQuaternion(dt / 1000.0);
     auto a_hat = getOrientation(accel->getVector(), mag->getVector());
 
     state = (state * dr).slerp(compensation, a_hat);

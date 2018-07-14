@@ -9,7 +9,8 @@ SRC = \
 	util
 
 SRC_PI = \
-	mpl3115a2
+	mpl3115a2 \
+	l3gd20
 
 LINKED_LIBS = \
 	boost_system \
