@@ -6,7 +6,8 @@ SRC = \
 	motion \
 	scheduler \
 	input \
-	util
+	util \
+	activity
 
 SRC_PI = \
 	mpl3115a2 \

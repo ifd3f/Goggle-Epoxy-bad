@@ -1,3 +1,5 @@
+#pragma once
+
 #include <wiringPiI2C.h>
 #include "motion.hpp"
 
