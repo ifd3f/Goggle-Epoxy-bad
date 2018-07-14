@@ -3,7 +3,7 @@ CC=g++
 # Compiler arguments
 C_ARGS = -I /usr/include/eigen3 -std=c++14 -Wall -g -DBOOST_LOG_DYN_LINK
 # Linker arguments
-L_ARGS = -lboost_system -lboost_log -lpthread
+L_ARGS = -lboost_system -lboost_log -lpthread -lcairo
 
 OUTPUT=main.out
 .DEFAULT_GOAL := all

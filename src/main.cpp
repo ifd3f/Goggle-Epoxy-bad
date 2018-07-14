@@ -1,13 +1,16 @@
 #include <iostream>
 #include <Eigen/Geometry>
+#include <cairo/cairo.h>
 
 int main(int argc, const char *argv[]) {
-    Eigen::Vector3d v1(1, 2, 3);
-    Eigen::Vector3d v2(4,5,6);
-    Eigen::Vector3d v3(7,8,9);
-
-    Eigen::Matrix3d m;
-    m << v1, v2, v3;
-    std::cout << m << std::endl;
+    auto srf = cairo_image_surface_create(CAIRO_FORMAT_A8, 128, 64);
+    auto cr = cairo_create(srf);
+    cairo_surface_destroy(srf);
+    cairo_set_operator(cr, CAIRO_OPERATOR_SOURCE);
+	cairo_set_source_rgba(cr, 1, 1, 1, 1);
+    cairo_rectangle(cr, 10, 10, 10, 10);
+    cairo_fill(cr);
+    cairo_surface_write_to_png(srf, "asdf.png");
+    cairo_destroy(cr);
     return 0;
 }
