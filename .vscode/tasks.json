@@ -6,7 +6,8 @@
         {
             "label": "build-wsl",
             "type": "shell",
-            "command": "bash -c \"make -j8 all\"",
+            "command": "bash",
+            "args": ["-c", "make -j16 all"],
             "problemMatcher": [
                 "$gcc"
             ],
@@ -14,21 +15,42 @@
                 "kind": "build",
                 "isDefault": true
             }
-        },
-        {
+        }, {
+            "label": "build-test-wsl",
+            "type": "shell",
+            "command": "bash",
+            "args": ["-c", "make -j16 link-test"],
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }, {
             "label": "clean-wsl",
             "type": "shell",
-            "command": "bash -c \"make clean\"",
+            "command": "bash",
+            "args": ["-c", "make clean"],
             "problemMatcher": []
-        },
-        {
+        }, {
             "label": "run-wsl",
             "type": "shell",
-            "command": "bash -c \"./main.out\"",
+            "command": "bash",
+            "args": ["-c", "./main.out"],
             "group":{
                 "kind": "test",
                 "isDefault": true
             }
-        }
+        }, {
+            "label": "run-test-wsl",
+            "type": "shell",
+            "command": "bash",
+            "args": ["-c", "./test.out"],
+            "group":{
+                "kind": "test",
+                "isDefault": true
+            }
+        }        
     ]
 }
