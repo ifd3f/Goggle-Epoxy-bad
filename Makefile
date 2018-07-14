@@ -12,7 +12,7 @@ build/%.o: directories src/%.cpp
 	$(CC) $(C_ARGS) -c src/$*.cpp -o build/$*.o
 
 .PHONY: all
-all: build/main.o
+all: build/main.o build/motion.o
 	$(CC) build/*.o $(L_ARGS) -o $(OUTPUT) 
 
 .PHONY: directories
