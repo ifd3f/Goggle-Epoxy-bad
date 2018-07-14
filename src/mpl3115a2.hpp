@@ -1,3 +1,5 @@
+#pragma once
+
 #include "motion.hpp"
 #include "scheduler.hpp"
 #include "weather.hpp"

@@ -4,7 +4,9 @@ CC=g++
 SRC = \
 	main \
 	motion \
-	scheduler
+	scheduler \
+	input \
+	util
 
 SRC_PI = \
 	mpl3115a2

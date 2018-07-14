@@ -1,7 +1,9 @@
-#include <wiringPiI2C.h>
 #include "mpl3115a2.hpp"
+
+#include <wiringPiI2C.h>
 #include "util.hpp"
 
+using namespace epoxy::util;
 using namespace epoxy::devices;
 
 double MPL3115A2Altimeter::getAltitude() {
@@ -46,7 +48,7 @@ void MPL3115A2::update(int dt) {
 void MPL3115A2::updateAltThm() {
     wiringPiI2CWriteReg8(addr, 0x26, 0xB9);
     char buf[6];
-    util::readBlockData(addr, 0x00, 6, buf);
+    readBlockData(addr, 0x00, 6, buf);
     int rawAltitude = ((int)buf[1] << 16) | ((int)buf[2] << 8) | ((int)buf[3] & 0xF0);
     int rawTemp = ((int)buf[4] << 8) | ((int)buf[5] & 0xF0);
     alt = rawAltitude / 256.0;
@@ -57,7 +59,7 @@ void MPL3115A2::updateAltThm() {
 void MPL3115A2::updateBar() {
     wiringPiI2CWriteReg8(addr, 0x26, 0x39);
     char buf[4];
-    util::readBlockData(addr, 0x00, 4, buf);
+    readBlockData(addr, 0x00, 4, buf);
     int rawPres = ((int)buf[1] << 16) | ((int)buf[2] << 8) | ((int)buf[3] & 0xF0);
     bar = rawPres / 64.0;
     status &= 2;

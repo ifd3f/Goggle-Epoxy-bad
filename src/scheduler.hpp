@@ -1,3 +1,5 @@
+#pragma once
+
 #include <vector>
 
 namespace epoxy {
@@ -29,8 +31,8 @@ namespace epoxy {
             std::vector<Command*> commands;
         public:
             SynchronousScheduler();
-            void addCommand(Command *cmd);
-            void update(int dt);
+            void addCommand(Command *cmd) override;
+            void update(int dt) override;
         };
 
     }
