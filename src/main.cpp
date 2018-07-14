@@ -10,6 +10,8 @@ int main(int argc, const char *argv[]) {
 	cairo_set_source_rgba(cr, 1, 1, 1, 1);
     cairo_rectangle(cr, 10, 10, 10, 10);
     cairo_fill(cr);
+    cairo_image_surface_get_data(srf);
+    std::cout << cairo_image_surface_get_stride(srf) << std::endl;
     cairo_surface_write_to_png(srf, "asdf.png");
     cairo_destroy(cr);
     return 0;
