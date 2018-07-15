@@ -9,7 +9,9 @@ SRC = \
 	util \
 	activity \
 	mpl3115a2 \
-	l3gd20
+	l3gd20 \
+	gpiobtn \
+	context
 
 SRC_TEST = \
 	test

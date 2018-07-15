@@ -26,7 +26,17 @@
 			"typeindex": "cpp",
 			"iostream": "cpp",
 			"core": "cpp",
-			"functional": "cpp"
+			"functional": "cpp",
+			"clocale": "cpp",
+			"csignal": "cpp",
+			"cstdarg": "cpp",
+			"*.tcc": "cpp",
+			"codecvt": "cpp",
+			"condition_variable": "cpp",
+			"initializer_list": "cpp",
+			"mutex": "cpp",
+			"system_error": "cpp",
+			"*.ipp": "cpp"
 		}
 	}
 }
