@@ -36,7 +36,9 @@
 			"initializer_list": "cpp",
 			"mutex": "cpp",
 			"system_error": "cpp",
-			"*.ipp": "cpp"
+			"*.ipp": "cpp",
+			"stack": "cpp",
+			"memory": "cpp"
 		}
 	}
 }

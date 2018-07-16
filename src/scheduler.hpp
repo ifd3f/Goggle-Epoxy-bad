@@ -17,8 +17,8 @@ namespace epoxy {
             virtual bool shouldTerminate() { return false; };
             virtual void terminate() { };
 
-            void setState(CommandState state);
-            CommandState getState();
+            void setCommandState(CommandState state);
+            CommandState getCommandState();
         };
 
         class Scheduler {

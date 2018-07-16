@@ -10,11 +10,11 @@ Command::Command(): state(CommandState::UNINITIALIZED) {
     
 }
 
-void Command::setState(CommandState state) { 
+void Command::setCommandState(CommandState state) { 
     this->state = state; 
 }
 
-CommandState Command::getState() {
+CommandState Command::getCommandState() {
     return state;
 }
 
@@ -23,22 +23,22 @@ SynchronousScheduler::SynchronousScheduler() {
 }
 
 void SynchronousScheduler::addCommand(Command *cmd) {
-    cmd->setState(CommandState::UNINITIALIZED);
+    cmd->setCommandState(CommandState::UNINITIALIZED);
     commands.push_back(cmd);
 }
 
 void SynchronousScheduler::update(int dt) {
     for (auto cmd: commands) {
-        switch (cmd->getState()) {
+        switch (cmd->getCommandState()) {
             case CommandState::UNINITIALIZED:
-                cmd->setState(CommandState::RUNNING);
+                cmd->setCommandState(CommandState::RUNNING);
                 cmd->initialize();
             break;
             case CommandState::RUNNING:
                 cmd->update(dt);
                 if (cmd->shouldTerminate()) {
                     cmd->terminate();
-                    cmd->setState(CommandState::STOPPED);
+                    cmd->setCommandState(CommandState::STOPPED);
                 }
             break;
             default:
@@ -46,7 +46,7 @@ void SynchronousScheduler::update(int dt) {
         }
     }
     commands.erase(std::remove_if(commands.begin(), commands.end(), [](auto cmd) {
-        return cmd->getState() == CommandState::STOPPED;
+        return cmd->getCommandState() == CommandState::STOPPED;
     }), commands.end());
 
 }

@@ -1,5 +1,7 @@
 #include "activity.hpp"
 
+#include <memory>
+
 using namespace epoxy::activity;
 
 ActivityManager::ActivityManager() {
@@ -24,9 +26,6 @@ void ActivityManager::update(int dt) {
         case POP:
             currentActivity->onSuspend();
             currentActivity->onStop();
-            if (currentActivity->shouldDelete) {
-                delete currentActivity;
-            }
             currentActivity = stack.top();
             stack.pop();
             currentActivity->onResume();
@@ -34,9 +33,6 @@ void ActivityManager::update(int dt) {
         case SWAP:
             currentActivity->onSuspend();
             currentActivity->onStop();
-            if (currentActivity->shouldDelete) {
-                delete currentActivity;
-            }
             currentActivity = nextOperation.activity;
             currentActivity->onStart();
             currentActivity->onResume();
@@ -49,7 +45,7 @@ void ActivityManager::update(int dt) {
     currentActivity->onUpdate(dt);
 }
 
-void ActivityManager::pushActivity(Activity* activity) {
+void ActivityManager::pushActivity(std::shared_ptr<Activity> activity) {
     nextOperation = { PUSH, activity };
 }
 
@@ -57,7 +53,7 @@ void ActivityManager::popActivity() {
     nextOperation = { POP, nullptr };
 }
 
-void ActivityManager::swapActivity(Activity* activity) {
+void ActivityManager::swapActivity(std::shared_ptr<Activity> activity) {
     nextOperation = { SWAP, activity };
 }
 

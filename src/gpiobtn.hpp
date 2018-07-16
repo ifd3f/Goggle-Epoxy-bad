@@ -12,8 +12,8 @@ namespace epoxy {
             const int pin;
             const bool invert;
         public:
-            GPIOButton(int pin);
-            GPIOButton(int pin, bool invert);
+            GPIOButton(int id, int pin);
+            GPIOButton(int id, int pin, bool invert);
             void initialize() override;
             bool isPressed() override;
         };
@@ -31,8 +31,8 @@ namespace epoxy {
              */
             unsigned char lastState;
             long ticks;
-            public:
-            GPIOQuadEncoder(int pinA, int pinB);
+        public:
+            GPIOQuadEncoder(int id, int pinA, int pinB);
             void initialize() override;
             void update(int dt) override;
             long getTicks() override;

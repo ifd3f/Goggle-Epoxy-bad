@@ -4,12 +4,12 @@
 
 using namespace epoxy::devices;
 
-GPIOButton::GPIOButton(int pin): pin(pin), invert(false) {
-
+GPIOButton::GPIOButton(int id, int pin): Button(id), pin(pin), invert(false) {
+    
 }
 
-GPIOButton::GPIOButton(int pin, bool invert): pin(pin), invert(invert) {
-
+GPIOButton::GPIOButton(int id, int pin, bool invert): Button(id), pin(pin), invert(invert) {
+    
 }
 
 void GPIOButton::initialize() {
@@ -20,7 +20,7 @@ bool GPIOButton::isPressed() {
     return digitalRead(pin);
 }
 
-GPIOQuadEncoder::GPIOQuadEncoder(int pinA, int pinB): pinA(pinA), pinB(pinB) {
+GPIOQuadEncoder::GPIOQuadEncoder(int id, int pinA, int pinB): Encoder(id), pinA(pinA), pinB(pinB) {
 
 }
 
@@ -31,9 +31,7 @@ void GPIOQuadEncoder::initialize() {
 }
 
 void GPIOQuadEncoder::update(int dt) {
-    bool a = digitalRead(pinA);
-    bool b = digitalRead(pinB);
-    unsigned char compare = (a << 4) | b;
+    unsigned char compare = (digitalRead(pinA) << 4) | digitalRead(pinB);
     unsigned char ctr = QUAD_ENCODER_COUNTER;
     int pos;
     for (pos=0; pos < 4; pos++) {

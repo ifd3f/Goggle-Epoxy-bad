@@ -2,6 +2,7 @@
 
 #include "scheduler.hpp"
 
+#include <memory>
 #include <stack>
 
 namespace epoxy {
@@ -11,7 +12,7 @@ namespace epoxy {
         public:
             virtual ~Activity();
             
-            bool shouldDelete = true;
+            virtual void onInput(int btn, int data) {};
             virtual void onStart() {};
             virtual void onResume() {};
             virtual void onUpdate(int dt) {};
@@ -25,12 +26,12 @@ namespace epoxy {
 
         struct ActivityOperation {
             ActivityOperationType op;
-            Activity* activity;
+            std::shared_ptr<Activity> activity;
         };
 
         class ActivityManager : public scheduler::Command {
-            std::stack<Activity*> stack;
-            Activity* currentActivity = nullptr;
+            std::stack<std::shared_ptr<Activity>> stack;
+            std::shared_ptr<Activity> currentActivity = nullptr;
             ActivityOperation nextOperation;
         public:
             ActivityManager();
@@ -38,9 +39,9 @@ namespace epoxy {
             void initialize() override;
             void update(int dt) override;
 
-            void pushActivity(Activity* activity);
+            void pushActivity(std::shared_ptr<Activity> activity);
             void popActivity();
-            void swapActivity(Activity* activity);
+            void swapActivity(std::shared_ptr<Activity> activity);
         };
     }
 }
