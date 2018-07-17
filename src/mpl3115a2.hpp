@@ -28,10 +28,6 @@ namespace epoxy {
             double getAltitude() override;
             double getPressure() override;
             double getTemperature() override;
-
-            friend class MPL3115A2Altimeter;
-            friend class MPL3115A2Barometer;
-            friend class MPL3115A2Thermometer;
         };
     }
 }

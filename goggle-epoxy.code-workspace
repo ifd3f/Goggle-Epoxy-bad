@@ -38,7 +38,9 @@
 			"system_error": "cpp",
 			"*.ipp": "cpp",
 			"stack": "cpp",
-			"memory": "cpp"
+			"memory": "cpp",
+			"exception": "cpp",
+			"string": "cpp"
 		}
 	}
 }

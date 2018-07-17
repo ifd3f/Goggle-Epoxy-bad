@@ -41,7 +41,7 @@ namespace epoxy {
             double scaleValue;
             double x, y, z;
         public:
-            LSM303DLHCMag(char addr, char scaleByte);
+            LSM303DLHCMag(char addr, unsigned char scaleByte);
             void initialize() override;
             void update(int dt) override;
             double getX() override;

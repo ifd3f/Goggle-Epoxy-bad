@@ -11,7 +11,10 @@ SRC = \
 	mpl3115a2 \
 	l3gd20 \
 	gpiobtn \
-	context
+	context \
+	lsm303 \
+	ssd1306 \
+	exception
 
 SRC_TEST = \
 	test
@@ -25,7 +28,7 @@ LINKED_LIBS = \
 	wiringPi
 
 # Compiler arguments
-C_ARGS = -I /usr/include/eigen3 -std=c++17 -Wall -g -DBOOST_LOG_DYN_LINK
+C_ARGS = -I /usr/include/eigen3 -I /usr/include/cairo -std=c++17 -Wall -g -DBOOST_LOG_DYN_LINK
 # Linker arguments
 L_ARGS = $(LINKED_LIBS:%=-l%)
 

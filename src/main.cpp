@@ -1,6 +1,6 @@
 #include <iostream>
 #include <Eigen/Geometry>
-#include <cairo/cairo.h>
+#include <cairo.h>
 
 int main(int argc, const char *argv[]) {
     auto srf = cairo_image_surface_create(CAIRO_FORMAT_A8, 128, 64);

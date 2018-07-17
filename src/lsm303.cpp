@@ -36,8 +36,8 @@ void LSM303DLHCAcc::update(int dt) {
     rz = (int)buf[4] << 8 | buf[5];
 
     x = rx * scaleValue;
-    y = rx * scaleValue;
-    z = rx * scaleValue;
+    y = ry * scaleValue;
+    z = rz * scaleValue;
 }
 
 double LSM303DLHCAcc::getX() {
@@ -52,7 +52,7 @@ double LSM303DLHCAcc::getZ() {
     return z;
 }
 
-LSM303DLHCMag::LSM303DLHCMag(char addr, char scaleByte): addr(addr), scaleByte(scaleByte) {
+LSM303DLHCMag::LSM303DLHCMag(char addr, unsigned char scaleByte): addr(addr), scaleByte(scaleByte) {
     switch (scaleByte) {
         case LSM303_MAG_13:
             scaleValue = 1.3;
@@ -87,8 +87,8 @@ void LSM303DLHCMag::update(int dt) {
     ry = (int)buf[4] << 8 | buf[5];
 
     x = rx * scaleValue;
-    y = rx * scaleValue;
-    z = rx * scaleValue;
+    y = ry * scaleValue;
+    z = rz * scaleValue;
 }
 
 double LSM303DLHCMag::getX() {
