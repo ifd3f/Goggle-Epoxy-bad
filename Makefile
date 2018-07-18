@@ -1,6 +1,7 @@
 # Compiler
 CC=g++
 
+NO_DEPS := clean
 MODULES := src
 SRC_NAMES := 
 
@@ -25,6 +26,7 @@ INC = \
 
 # Compiler arguments
 C_ARGS = $(INC:%=-I %) -std=c++17 -pedantic -Wall -Wextra -Wno-unused-parameter -g -DBOOST_LOG_DYN_LINK
+C_ARGS_RELEASE = $(INC:%=-I %) -std=c++17 -pedantic -Wall -Wextra -Wno-unused-parameter -DBOOST_LOG_DYN_LINK
 # Linker arguments
 L_ARGS = $(INC:%=-I %) $(LIB:%=-l%)
 
@@ -54,4 +56,6 @@ all: link-main
 clean:
 	find . | grep -e '\.d$$' -e '\.o$$' -e '\.out$$' | xargs rm -rf
 
-include $(DEP)
+ifneq ($(MAKECMDGOALS), clean)
+	include $(DEP)
+endif
