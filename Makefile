@@ -19,6 +19,7 @@ LIB = \
 	wiringPi
 
 INC = \
+	src/ \
 	/usr/include/eigen3/ \
 	/usr/include/cairo/
 
@@ -34,7 +35,11 @@ $(DEP): $(SRC)
 	$(CC) $(C_ARGS) $(@:.d=.cpp) -MM -MT $(@:src/%.d=build/%.o) | sed -e 's@ˆ\(.*\)\.o:@\1.d \1.o:@' > $@
 
 build/%.o: src/%.cpp
-	$(CC) $(C_ARGS) -c $< -o $@
+	$(CC) $(C_ARGS) -c src/$*.cpp -o $@
+
+.PHONY: directories
+directories:
+	mkdir -p build build/devices
 
 .PHONY: link-main
 link-main: $(OBJ)
@@ -45,7 +50,6 @@ all: link-main
 
 .PHONY: clean
 clean:
-	rm -f build/*.o $(TARGET) *.d
-	rm -rf */*.d
+	find . | grep -e '\.d$$' -e '\.o$$' -e '\.out$$' | xargs rm
 
 include $(DEP)

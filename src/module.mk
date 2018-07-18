@@ -5,10 +5,10 @@ SRC_NAMES += \
 	src/input \
 	src/util \
 	src/activity \
-	src/mpl3115a2 \
-	src/l3gd20 \
-	src/gpiobtn \
 	src/context \
-	src/lsm303 \
-	src/ssd1306 \
-	src/exception
+	src/exception \
+	src/devices/mpl3115a2 \
+	src/devices/l3gd20 \
+	src/devices/gpiobtn \
+	src/devices/lsm303 \
+	src/devices/ssd1306 
