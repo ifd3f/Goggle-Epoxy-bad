@@ -1,3 +1,5 @@
+#pragma once
+
 #include "input.hpp"
 
 #define QUAD_ENCODER_SEQ 0b01100011

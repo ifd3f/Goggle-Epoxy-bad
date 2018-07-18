@@ -12,8 +12,8 @@
 using namespace epoxy::devices;
 
 SSD1306::SSD1306(char addr): addr(addr) {
-    surf = cairo_image_surface_create(CAIRO_FORMAT_A8, 128, 64);
-    for (int i=0; i < SSD1306_OUT_BUF_SIZE; i += 17) {
+    surf = cairo_image_surface_create(CAIRO_FORMAT_A8, PIXEL_WIDTH, PIXEL_HEIGHT);
+    for (int i=0; i < OUT_BUF_SIZE; i += OUT_BUF_STRIDE) {
         drawBuf[i] = 0x40;
     }
 }
@@ -41,9 +41,9 @@ void SSD1306::writeDisplay() {
     auto data = cairo_image_surface_get_data(surf);
 
     for (int y=0; y < 64; y++) {
-        auto base_bi = drawBuf + 17 * y;
+        auto base_bi = drawBuf + OUT_BUF_STRIDE * y;
         int base_sx = stride * y;
-        for (int bx=1; bx < 17; bx++) {
+        for (int bx=1; bx < OUT_BUF_STRIDE; bx++) {
             int base_si = base_sx + 8 * bx;
             char byteBuf = 0;
             for (int bj=0; bj < 8; bj++) {
@@ -60,7 +60,7 @@ void SSD1306::writeDisplay() {
     char pageAddr[] = {0x22, 0, 7};
     write(fd, pageAddr, 3);
 
-    for (int i=0; i < SSD1306_OUT_BUF_SIZE; i += 17) {        
+    for (int i=0; i < OUT_BUF_SIZE; i += OUT_BUF_STRIDE) {        
         write(fd, drawBuf + i, 16);
     }
 }
