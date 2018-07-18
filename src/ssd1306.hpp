@@ -17,6 +17,7 @@ namespace epoxy {
             int sendCommand(unsigned char c);
         public:
             SSD1306(char addr);
+            cairo_surface_t* getSurface();
             void initialize() override;
             void update(int dt) override;
             void writeDisplay();

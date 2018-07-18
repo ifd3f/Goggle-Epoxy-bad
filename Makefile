@@ -19,7 +19,7 @@ SRC = \
 SRC_TEST = \
 	test
 
-LINKED_LIBS = \
+LIB = \
 	boost_system \
 	boost_log \
 	pthread \
@@ -27,10 +27,14 @@ LINKED_LIBS = \
 	crypt \
 	wiringPi
 
+INC = \
+	/usr/include/eigen3 \
+	/usr/include/cairo
+
 # Compiler arguments
-C_ARGS = -I /usr/include/eigen3 -I /usr/include/cairo -std=c++17 -Wall -g -DBOOST_LOG_DYN_LINK
+C_ARGS = $(INC:%=-I %) -std=c++17 -pedantic -Wall -Wextra -Wno-unused-parameter -g -DBOOST_LOG_DYN_LINK
 # Linker arguments
-L_ARGS = $(LINKED_LIBS:%=-l%)
+L_ARGS = $(LIB:%=-l%)
 
 OUTPUT=main.out
 .DEFAULT_GOAL := all
@@ -54,5 +58,4 @@ directories:
  
 .PHONY: clean
 clean:
-	rm -f build/*.o
-	rm -f build/$(OUTPUT)
+	rm -f build/*.o build/$(OUTPUT)

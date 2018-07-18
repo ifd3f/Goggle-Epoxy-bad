@@ -64,3 +64,7 @@ void SSD1306::writeDisplay() {
         write(fd, drawBuf + i, 16);
     }
 }
+
+cairo_surface_t* SSD1306::getSurface() {
+    return surf;
+}
