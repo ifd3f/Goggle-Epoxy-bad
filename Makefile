@@ -25,20 +25,16 @@ INC = \
 # Compiler arguments
 C_ARGS = $(INC:%=-I %) -std=c++17 -pedantic -Wall -Wextra -Wno-unused-parameter -g -DBOOST_LOG_DYN_LINK
 # Linker arguments
-L_ARGS = $(LIB:%=-l%)
+L_ARGS = $(INC:%=-I %) $(LIB:%=-l%)
 
-TARGET=main.out
+TARGET = main.out
 .DEFAULT_GOAL := all
 
-include $(DEP)
-
 $(DEP): $(SRC)
-	echo $@
-	$(CC) $(C_ARGS) $(@:.d=.cpp) -MM -MT $(@:src/%.d=build/%.o) | sed 's/\.cpp\|\.hpp/\.o/' > $@
+	$(CC) $(C_ARGS) $(@:.d=.cpp) -MM -MT $(@:src/%.d=build/%.o) | sed -e 's@ˆ\(.*\)\.o:@\1.d \1.o:@' > $@
 
 build/%.o: src/%.cpp
-	echo $@
-	$(CC) $(C_ARGS) -c $^ -o $@
+	$(CC) $(C_ARGS) -c $< -o $@
 
 .PHONY: link-main
 link-main: $(OBJ)
@@ -51,3 +47,5 @@ all: link-main
 clean:
 	rm -f build/*.o $(TARGET) *.d
 	rm -rf */*.d
+
+include $(DEP)
