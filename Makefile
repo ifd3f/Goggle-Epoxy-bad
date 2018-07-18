@@ -7,7 +7,7 @@ SRC_NAMES :=
 include $(MODULES:%=%/module.mk)
 
 SRC := $(SRC_NAMES:%=%.cpp)
-DEP := $(SRC_NAMES:%=%.d)
+DEP := $(SRC_NAMES:src/%=.d/%.d)
 OBJ := $(SRC_NAMES:src/%=build/%.o)
 
 LIB = \
@@ -31,15 +31,19 @@ L_ARGS = $(INC:%=-I %) $(LIB:%=-l%)
 TARGET = main.out
 .DEFAULT_GOAL := all
 
-$(DEP): $(SRC)
-	$(CC) $(C_ARGS) $(@:.d=.cpp) -MM -MT $(@:src/%.d=build/%.o) | sed -e 's@ˆ\(.*\)\.o:@\1.d \1.o:@' > $@
+.d/%.d: src/%.cpp
+	$(CC) $(C_ARGS) src/$*.cpp -MM -MT build/$*.o | sed -e 's@ˆ\(.*\)\.o:@\1.d \1.o:@' > $@
 
 build/%.o: src/%.cpp
 	$(CC) $(C_ARGS) -c src/$*.cpp -o $@
 
-.PHONY: directories
-directories:
-	mkdir -p build build/devices
+.PHONY: build-directories
+build-directories:
+	mkdir -p build/ build/devices/
+
+.PHONY: dep-directories
+dep-directories:
+	mkdir -p .d/ .d/devices/
 
 .PHONY: link-main
 link-main: $(OBJ)
@@ -50,6 +54,6 @@ all: link-main
 
 .PHONY: clean
 clean:
-	find . | grep -e '\.d$$' -e '\.o$$' -e '\.out$$' | xargs rm
+	find . | grep -e '\.d$$' -e '\.o$$' -e '\.out$$' | xargs rm -rf
 
 include $(DEP)
