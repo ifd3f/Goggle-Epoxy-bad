@@ -57,5 +57,5 @@ clean:
 	find . | grep -e '\.d$$' -e '\.o$$' -e '\.out$$' | xargs rm -rf
 
 ifneq ($(MAKECMDGOALS), clean)
-	include $(DEP)
+include $(DEP)
 endif
