@@ -1,6 +1,7 @@
 #include "motion.hpp"
 
 #include <Eigen/Geometry>
+#include "scheduler.hpp"
 
 using namespace epoxy::motion;
 

@@ -1,23 +1,14 @@
 # Compiler
 CC=g++
 
-SRC = \
-	main \
-	motion \
-	scheduler \
-	input \
-	util \
-	activity \
-	mpl3115a2 \
-	l3gd20 \
-	gpiobtn \
-	context \
-	lsm303 \
-	ssd1306 \
-	exception
+MODULES := src
+SRC_NAMES := 
 
-SRC_TEST = \
-	test
+include $(MODULES:%=%/module.mk)
+
+SRC := $(SRC_NAMES:%=%.cpp)
+DEP := $(SRC_NAMES:%=%.d)
+OBJ := $(SRC_NAMES:src/%=build/%.o)
 
 LIB = \
 	boost_system \
@@ -28,34 +19,35 @@ LIB = \
 	wiringPi
 
 INC = \
-	/usr/include/eigen3 \
-	/usr/include/cairo
+	/usr/include/eigen3/ \
+	/usr/include/cairo/
 
 # Compiler arguments
 C_ARGS = $(INC:%=-I %) -std=c++17 -pedantic -Wall -Wextra -Wno-unused-parameter -g -DBOOST_LOG_DYN_LINK
 # Linker arguments
 L_ARGS = $(LIB:%=-l%)
 
-OUTPUT=main.out
+TARGET=main.out
 .DEFAULT_GOAL := all
 
-build/%.o: directories src/%.cpp
-	$(CC) $(C_ARGS) -c src/$*.cpp -o build/$*.o
+include $(DEP)
 
-.PHONY: link-all
-link-all: $(SRC:%=build/%.o)
-	$(CC) $(SRC:%=build/%.o) $(L_ARGS) -o $(OUTPUT) 
+$(DEP): $(SRC)
+	echo $@
+	$(CC) $(C_ARGS) $(@:.d=.cpp) -MM -MT $(@:src/%.d=build/%.o) | sed 's/\.cpp\|\.hpp/\.o/' > $@
 
-link-test: $(SRC_TEST:%=build/%.o)
-	$(CC) $(SRC_TEST:%=build/%.o) $(L_ARGS) -o test.out
+build/%.o: src/%.cpp
+	echo $@
+	$(CC) $(C_ARGS) -c $^ -o $@
+
+.PHONY: link-main
+link-main: $(OBJ)
+	$(CC) $(L_ARGS) $(OBJ) -o $(TARGET)
 
 .PHONY: all
-all: link-all
+all: link-main
 
-.PHONY: directories
-directories:
-	mkdir -p build
- 
 .PHONY: clean
 clean:
-	rm -f build/*.o build/$(OUTPUT)
+	rm -f build/*.o $(TARGET) *.d
+	rm -rf */*.d

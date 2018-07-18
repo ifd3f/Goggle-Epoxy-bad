@@ -2,8 +2,10 @@
 #include <Eigen/Geometry>
 #include <cairo.h>
 
+#include "scheduler.hpp"
+
 int main(int argc, const char *argv[]) {
-    auto srf = cairo_image_surface_create(CAIRO_FORMAT_A8, 128, 64);
+    /*auto srf = cairo_image_surface_create(CAIRO_FORMAT_A8, 128, 64);
     auto cr = cairo_create(srf);
     cairo_surface_destroy(srf);
     cairo_set_operator(cr, CAIRO_OPERATOR_SOURCE);
@@ -14,5 +16,5 @@ int main(int argc, const char *argv[]) {
     std::cout << cairo_image_surface_get_stride(srf) << std::endl;
     cairo_surface_write_to_png(srf, "asdf.png");
     cairo_destroy(cr);
-    return 0;
+    return 0;*/
 }
