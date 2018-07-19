@@ -4,15 +4,21 @@
 #include "scheduler.hpp"
 #include "activity.hpp"
 #include "motion.hpp"
+#include "hardware.hpp"
 
+
+using namespace epoxy;
 namespace epoxy {
 
     class Context {
     public:
+        Hardware hw;
+        activity::ActivityManager* activityManager;
+        scheduler::Scheduler* scheduler;
+        motion::OrientationIntegrator* orientation;
         Context();
-        std::unique_ptr<activity::ActivityManager> activityManager;
-        std::unique_ptr<scheduler::Scheduler> scheduler;
-        std::unique_ptr<motion::OrientationIntegrator> orientation;
+        void run();
+        ~Context();
     };
 
 }

@@ -7,6 +7,7 @@ SRC_NAMES += \
 	src/activity \
 	src/context \
 	src/exception \
+	src/hardware \
 	src/devices/mpl3115a2 \
 	src/devices/l3gd20 \
 	src/devices/gpiobtn \

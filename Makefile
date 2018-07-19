@@ -34,7 +34,7 @@ TARGET = main.out
 .DEFAULT_GOAL := all
 
 .d/%.d: src/%.cpp .d/
-	$(CC) $(C_ARGS) src/$*.cpp -MM -MT build/$*.o | sed -e 's@ˆ\(.*\)\.o:@\1.d \1.o:@' > $@
+	$(CC) $(C_ARGS) src/$*.cpp -MM -MG -MT build/$*.o | sed -e 's@ˆ\(.*\)\.o:@\1.d \1.o:@' > $@
 
 build/%.o: src/%.cpp build/
 	$(CC) $(C_ARGS) -c src/$*.cpp -o $@
@@ -47,7 +47,7 @@ build/:
 
 .PHONY: link-main
 link-main: $(OBJ)
-	$(CC) $(L_ARGS) $(OBJ) -o $(TARGET)
+	$(CC) $(L_ARGS) build/*.o -o $(TARGET)
 
 .PHONY: all
 all: link-main
