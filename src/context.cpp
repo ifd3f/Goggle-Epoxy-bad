@@ -27,7 +27,11 @@ Context::Context() {
 
 void Context::run() {
     while (true) {
-        scheduler->update(1);
+        try {
+            scheduler->update();
+        } catch (const std::exception& e) {
+            throw e;
+        }
     }
 }
 

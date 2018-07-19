@@ -25,10 +25,10 @@ namespace epoxy {
 
         class Command {
             CommandState state;
-            unsigned long lastRun;
+            unsigned long long lastExecuted;
         public:
             Command();
-            virtual ~Command() {};
+            virtual ~Command() = default;
 
             const CommandSchedulingParam scheduling;
 
@@ -39,42 +39,24 @@ namespace epoxy {
 
             void setCommandState(CommandState state);
             CommandState getCommandState();
+            unsigned long long getLastExecuted();
+            void doLoop(unsigned long long time);
         };
 
         class Scheduler {
         public:
-            virtual ~Scheduler() {};
+            virtual ~Scheduler() = default;
             virtual void addCommand(Command *cmd) = 0;
-            virtual void update(int dt) = 0;
+            virtual void update() = 0;
         };
 
-
-        class CommandQueue {
-        public:
-            struct Node {
-                Node* prev;
-                Node* next;
-                Command* command;
-                Command* remove();
-            };
-
-            CommandQueue();
-            ~CommandQueue(); 
-            void pushFront(Command* cmd);
-            void pushBack(Command* cmd);
-            Command* popFront();
-            Node* first;
-            Node* last;
-        };
 
         class SynchronousScheduler : public Scheduler {
-            CommandQueue commands;
-            std::list<Command*> priorityCommands;
-            void runCommand(Command* cmd);
+            std::list<Command*> sq, hq, lq;
         public:
             SynchronousScheduler();
             void addCommand(Command *cmd) override;
-            void update(int dt) override;
+            void update() override;
         };
 
     }
