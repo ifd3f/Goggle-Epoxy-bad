@@ -12,6 +12,7 @@ namespace epoxy {
             CommandState state;
         public:
             Command();
+            virtual ~Command() {};
             virtual void initialize() { };
             virtual void update(int dt) { };
             virtual bool shouldTerminate() { return false; };
@@ -23,6 +24,7 @@ namespace epoxy {
 
         class Scheduler {
         public:
+            virtual ~Scheduler() {};
             virtual void addCommand(Command *cmd) = 0;
             virtual void update(int dt) = 0;
         };

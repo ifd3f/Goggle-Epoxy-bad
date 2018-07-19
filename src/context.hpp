@@ -12,13 +12,14 @@ namespace epoxy {
 
     class Context {
     public:
+        Context();
+        ~Context();
+
         Hardware hw;
         activity::ActivityManager* activityManager;
         scheduler::Scheduler* scheduler;
         motion::OrientationIntegrator* orientation;
-        Context();
         void run();
-        ~Context();
     };
 
 }

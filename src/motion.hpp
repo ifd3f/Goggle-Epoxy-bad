@@ -22,15 +22,17 @@ namespace epoxy {
 
         class Gyro {
         public:
+            virtual ~Gyro() {};
             virtual double getX() = 0;
             virtual double getY() = 0;
             virtual double getZ() = 0;
 
-            Eigen::Quaterniond getDeltaQuaternion(double dt);        
+            Eigen::Quaterniond getDeltaQuaternion(double dt);
         };
 
         class VectorOutput {
         public:
+            virtual ~VectorOutput() {};
             virtual double getX() = 0;
             virtual double getY() = 0;
             virtual double getZ() = 0;

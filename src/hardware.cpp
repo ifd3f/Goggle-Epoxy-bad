@@ -7,11 +7,11 @@ Hardware::Hardware() {
     acc = new devices::LSM303DLHCAcc(0x30, LSM303_ACC_8G);
     gyro = new devices::L3GD20(0x30, L3GD20_500);
     mag = new devices::LSM303DLHCMag(0x30, LSM303_MAG_81);
-    encoder = new devices::GPIOQuadEncoder(10, 10, 10);
-    btnH = new devices::GPIOButton(10, 10);
-    btnX = new devices::GPIOButton(10, 10);
-    btnY = new devices::GPIOButton(10, 10);
-    btnZ = new devices::GPIOButton(10, 10);
+    encoder = new devices::GPIOQuadEncoder(ENCODER_ID, 10, 10);
+    btnH = new devices::GPIOButton(BTN_H_ID, 10);
+    btnX = new devices::GPIOButton(BTN_X_ID, 10);
+    btnY = new devices::GPIOButton(BTN_Y_ID, 10);
+    btnZ = new devices::GPIOButton(BTN_Z_ID, 10);
 }
 
 Hardware::~Hardware() {

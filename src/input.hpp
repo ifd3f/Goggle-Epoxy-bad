@@ -13,16 +13,17 @@ namespace epoxy {
 
         class Button : public Command {
         public:
-            const int id;
-
             Button(int id);
+            virtual ~Button() {};
+            const int id;
             virtual bool isPressed() = 0;
         };
 
         class Encoder : public Command {
         public:
-            const int id;
             Encoder(int id);
+            virtual ~Encoder() {};
+            const int id;
             virtual void reset() = 0;
             virtual long getTicks() = 0;
         };

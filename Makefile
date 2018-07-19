@@ -47,7 +47,7 @@ build/:
 
 .PHONY: link-main
 link-main: $(OBJ)
-	$(CC) $(L_ARGS) build/*.o -o $(TARGET)
+	$(CC) $(L_ARGS) $(OBJ) -o $(TARGET)
 
 .PHONY: all
 all: link-main
