@@ -4,7 +4,7 @@
 #include <iostream>
 #include <iterator>
 
-#include <boost/date_time.hpp>
+#include "util.hpp"
 
 using namespace epoxy::scheduler;
 
@@ -20,11 +20,11 @@ CommandState Command::getCommandState() {
     return state;
 }
 
-unsigned long long Command::getLastExecuted() {
+long long Command::getLastExecuted() {
     return lastExecuted;
 }
 
-void Command::doLoop(unsigned long long time) {
+void Command::doLoop(long long time) {
     switch (getCommandState()) {
         case CommandState::UNINITIALIZED:
             setCommandState(CommandState::RUNNING);
@@ -47,17 +47,17 @@ SynchronousScheduler::SynchronousScheduler() = default;
 
 void SynchronousScheduler::addCommand(Command *cmd) {
     cmd->setCommandState(CommandState::UNINITIALIZED);
-    if (cmd->scheduling.minTime > 0) {
-        lq.push_back(cmd);
-    } else if (cmd->scheduling.repTime > 0) {
-        hq.push_back(cmd);
-    } else {
-        sq.push_back(cmd);
+    standard.push_back(cmd);
+    if (cmd->scheduling.repTime > 0) {
+        priority.push_back(standard.end());
     }
 }
 
 void SynchronousScheduler::update() {
-    for (auto cmd: lq) {
-        //if (cmd->scheduling.repTime - ;
+    auto* cmd = standard.front();
+    standard.pop_front();
+    cmd->doLoop(util::getMillis());
+    if (cmd->getCommandState() != CommandState::STOPPED) {
+        standard.push_back(cmd);
     }
 }

@@ -1,21 +1,20 @@
 cmake_minimum_required(VERSION 3.10.0)
 project(GoggleEpoxy)
 
-include_directories(src)
-include_directories(/usr/include/eigen3)
-include_directories(/usr/include/cairo)
+SET(CMAKE_SYSTEM_NAME Linux)
+SET(CMAKE_SYSTEM_VERSION 1)
 
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -pedantic -Wextra -Wno-unused-parameter -DBOOST_LOG_DYN_LINK")
 
 set(Boost_USE_STATIC_LIBS OFF)
 set(Boost_USE_MULTITHREADED ON)
 set(Boost_USE_STATIC_RUNTIME OFF)
-find_package(Boost 1.58.0 REQUIRED COMPONENTS date_time)
-
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -pedantic -Wextra -Wno-unused-parameter -DBOOST_LOG_DYN_LINK")
+#find_package(Boost 1.58.0 REQUIRED COMPONENTS date_time)
 
 include_directories(
-        ${Boost_INCLUDE_DIRS}
+        ./src/
+        #${Boost_INCLUDE_DIRS}
         /usr/include/bin/
         /usr/include/eigen3/
         /usr/include/cairo/
@@ -25,8 +24,7 @@ link_directories(
         /usr/local/lib/)
 
 link_libraries(
-        ${Boost_LIBRARIES}
-        ${Boost_INCLUDE_DIRS}
+        #${Boost_LIBRARIES}
         cairo
         crypt
         wiringPi)
