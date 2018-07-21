@@ -69,6 +69,8 @@ void InputManager::setInputListener(InputListener *listener) {
 }
 
 void InputManager::update(int dt) {
+    if (listener == nullptr) return;
+
     while (!bQueue.empty()) {
         listener->onInput(bQueue.front());
         bQueue.pop();

@@ -12,9 +12,11 @@ Context::Context() {
     scheduler = new scheduler::SynchronousScheduler();
     activityManager = new activities::ActivityManager(this);
     orientation = new motion::OrientationIntegrator(hw.gyro, hw.acc, hw.mag, 0.02);
+    input = new input::InputManager(scheduler);
 
     scheduler->addCommand(activityManager);
     scheduler->addCommand(orientation);
+    scheduler->addCommand(input);
 
     scheduler->addCommand(hw.gyro);
     scheduler->addCommand(hw.acc);
@@ -40,4 +42,5 @@ Context::~Context() {
     delete scheduler;
     delete activityManager;
     delete orientation;
+    delete input;
 }

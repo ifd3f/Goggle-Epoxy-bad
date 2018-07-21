@@ -19,6 +19,7 @@ namespace epoxy {
         activities::ActivityManager* activityManager;
         scheduler::Scheduler* scheduler;
         motion::OrientationIntegrator* orientation;
+        input::InputManager* input;
         void run();
     };
 

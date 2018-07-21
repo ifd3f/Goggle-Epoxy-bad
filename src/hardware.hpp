@@ -27,9 +27,15 @@ namespace epoxy {
     public:
         // TODO: CHANGE THESE I2C ADDRS AND PIN #'s
         devices::SSD1306* screen;
+
         devices::LSM303DLHCAcc* acc;
         devices::L3GD20* gyro;
         devices::LSM303DLHCMag* mag;
+
+        devices::MPL3115A2* alt;
+        devices::MPL3115A2* bar;
+        devices::MPL3115A2* thm;
+
         devices::GPIOQuadEncoder* encoder;
         devices::GPIOButton* btnH;
         devices::GPIOButton* btnX;

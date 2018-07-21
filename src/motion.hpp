@@ -58,8 +58,8 @@ namespace epoxy {
             OrientationIntegrator(Gyro *gyro, VectorOutput *accel, VectorOutput *mag, double compensation);
 
             void calibrate();
-            void run();
             void update(int dt) override;
+            Eigen::Quaterniond getOrientation();
         };
 
     }

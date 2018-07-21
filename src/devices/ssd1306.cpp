@@ -68,3 +68,7 @@ void SSD1306::writeDisplay() {
 cairo_surface_t* SSD1306::getSurface() {
     return surf;
 }
+
+cairo_t *SSD1306::createContext() {
+    return cairo_create(getSurface());
+}

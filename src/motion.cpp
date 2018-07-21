@@ -48,6 +48,10 @@ void OrientationIntegrator::update(int dt) {
     state = (state * dr).slerp(compensation, a_hat);
 }
 
+Eigen::Quaterniond OrientationIntegrator::getOrientation() {
+    return state;
+}
+
 double DummyVectorOutput::getX() {
     return x;
 }
