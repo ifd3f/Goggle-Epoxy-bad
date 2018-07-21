@@ -2,10 +2,10 @@
 
 #include <memory>
 
-using namespace epoxy::activity;
+using namespace epoxy::activities;
 
-ActivityManager::ActivityManager() {
-
+ActivityManager::ActivityManager(Context* ctx) {
+    this->ctx = ctx;
 }
 
 void ActivityManager::initialize() {
@@ -20,6 +20,7 @@ void ActivityManager::update(int dt) {
             }
             stack.push(currentActivity);
             currentActivity = nextOperation.activity;
+            currentActivity->ctx = ctx;
             currentActivity->onStart();
             currentActivity->onResume();
         break;
@@ -34,6 +35,7 @@ void ActivityManager::update(int dt) {
             currentActivity->onSuspend();
             currentActivity->onStop();
             currentActivity = nextOperation.activity;
+            currentActivity->ctx = ctx;
             currentActivity->onStart();
             currentActivity->onResume();
         break;

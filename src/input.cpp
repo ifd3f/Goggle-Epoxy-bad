@@ -14,38 +14,68 @@ Encoder::Encoder(int id): id(id) {
 
 }
 
-ButtonListener::ButtonListener(std::shared_ptr<Button> btn): btn(btn) {
+ButtonQueueListener::ButtonQueueListener(Button* btn, std::queue<ButtonEvent>* queue): btn(btn), queue(queue) {
 
 }
 
-void ButtonListener::update(int dt) {
+void ButtonQueueListener::update(int dt) {
     if (queue != nullptr) {
         bool state = btn->isPressed();
         if (last != state) {
-            queue->emplace(ButtonEvent { btn.get(), state });
+            queue->emplace(ButtonEvent { btn, state });
             last = state;
         }
     }
 }
 
-void ButtonListener::attachEventQueue(std::shared_ptr<std::queue<ButtonEvent>> queue) {
-    this->queue = queue;
+void ButtonQueueListener::terminate() {
+    delete this;
 }
 
-EncoderListener::EncoderListener(std::shared_ptr<Encoder> enc): enc(enc) {
+EncoderQueueListener::EncoderQueueListener(Encoder* enc, std::queue<EncoderEvent>* queue): enc(enc), queue(queue) {
 
 }
 
-void EncoderListener::update(int dt) {
+void EncoderQueueListener::update(int dt) {
     if (queue != nullptr) {
         long ticks = enc->getTicks();
         if (last != ticks) {
-            queue->emplace(EncoderEvent { enc.get(), (signed char) (ticks - last) });
+            queue->emplace(EncoderEvent { enc, (signed char) (ticks - last) });
             last = ticks;
         }
     }
 }
 
-void EncoderListener::attachEventQueue(std::shared_ptr<std::queue<EncoderEvent>> queue) {
-    this->queue = queue;
+void EncoderQueueListener::terminate() {
+    delete this;
 }
+
+void InputManager::addButton(Button* btn) {
+    auto* ls = new ButtonQueueListener(btn, &bQueue);
+    sched->addCommand(ls);
+}
+
+void InputManager::addEncoder(Encoder* enc) {
+    auto* ls = new EncoderQueueListener(enc, &eQueue);
+    sched->addCommand(ls);
+}
+
+InputManager::InputManager(Scheduler *sched): sched(sched) {
+
+}
+
+void InputManager::setInputListener(InputListener *listener) {
+    this->listener = listener;
+}
+
+void InputManager::update(int dt) {
+    while (!bQueue.empty()) {
+        listener->onInput(bQueue.front());
+        bQueue.pop();
+    }
+    while (!eQueue.empty()) {
+        listener->onInput(eQueue.front());
+        eQueue.pop();
+    }
+}
+

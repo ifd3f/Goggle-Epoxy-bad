@@ -57,4 +57,9 @@ add_executable(GoggleEpoxy
         src/scheduler.hpp
         src/util.cpp
         src/util.hpp
-        src/weather.hpp)
+        src/weather.hpp src/activities/blank.cpp src/activities/blank.hpp src/activities/Home_Sensors.cpp src/activities/Home_Sensors.hpp)
+
+add_executable(Test
+        src/test.cpp
+        src/devices/ssd1306.hpp
+        src/devices/ssd1306.cpp)

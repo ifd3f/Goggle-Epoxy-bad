@@ -5,6 +5,7 @@
 #include <memory>
 
 #include "scheduler.hpp"
+#include "context.hpp"
 
 using namespace epoxy::scheduler;
 namespace epoxy {
@@ -14,15 +15,15 @@ namespace epoxy {
         class Button : public Command {
         public:
             Button(int id);
-            virtual ~Button() {};
+            virtual ~Button() = default;
             const int id;
             virtual bool isPressed() = 0;
         };
 
         class Encoder : public Command {
         public:
-            Encoder(int id);
-            virtual ~Encoder() {};
+            explicit Encoder(int id);
+            virtual ~Encoder() = default;
             const int id;
             virtual void reset() = 0;
             virtual long getTicks() = 0;
@@ -47,24 +48,45 @@ namespace epoxy {
             signed char delta;
         };
         
-        class ButtonListener : public Command {
-            std::shared_ptr<std::queue<ButtonEvent>> queue;
-            std::shared_ptr<Button> btn;
+        class ButtonQueueListener : public Command {
+            std::queue<ButtonEvent>* queue;
+            Button* btn;
             bool last;
         public:
-            ButtonListener(std::shared_ptr<Button> btn);
+            ButtonQueueListener(Button* btn, std::queue<ButtonEvent>* queue);
             void update(int dt) override;
-            void attachEventQueue(std::shared_ptr<std::queue<ButtonEvent>> queue);
+            void terminate() override;
         };
 
-        class EncoderListener : public Command {
-            std::shared_ptr<std::queue<EncoderEvent>> queue;
-            std::shared_ptr<Encoder> enc;
+        class EncoderQueueListener : public Command {
+            std::queue<EncoderEvent>* queue;
+            Encoder* enc;
             long last;
         public:
-            EncoderListener(std::shared_ptr<Encoder> enc);
+            EncoderQueueListener(Encoder* enc, std::queue<EncoderEvent>* queue);
             void update(int dt) override;
-            void attachEventQueue(std::shared_ptr<std::queue<EncoderEvent>> queue);
+            void terminate() override;
+        };
+
+        class InputListener {
+        public:
+            virtual void onInput(EncoderEvent ev) = 0;
+            virtual void onInput(ButtonEvent ev) = 0;
+        };
+
+        class InputManager : public scheduler::Command {
+            std::queue<EncoderEvent> eQueue;
+            std::queue<ButtonEvent> bQueue;
+            Scheduler* sched;
+            InputListener* listener;
+        public:
+            InputManager(Scheduler* sched);
+
+            void update(int dt) override;
+
+            void addButton(Button* btn);
+            void addEncoder(Encoder* enc);
+            void setInputListener(InputListener* listener);
         };
 
     }

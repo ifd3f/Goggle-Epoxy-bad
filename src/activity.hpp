@@ -1,23 +1,29 @@
 #pragma once
 
 #include "scheduler.hpp"
+#include "context.hpp"
 
 #include <memory>
 #include <stack>
 
 namespace epoxy {
-    namespace activity {
+    namespace activities {
+
+        class ActivityManager;
 
         class Activity {
+        protected:
+            Context* ctx;
         public:
-            virtual ~Activity();
+            virtual ~Activity() = default;
             
-            virtual void onInput(int btn, int data) {};
             virtual void onStart() {};
             virtual void onResume() {};
             virtual void onUpdate(int dt) {};
             virtual void onSuspend() {};
             virtual void onStop() {};
+
+            friend class ActivityManager;
         };
 
         enum ActivityOperationType {
@@ -33,8 +39,9 @@ namespace epoxy {
             std::stack<std::shared_ptr<Activity>> stack;
             std::shared_ptr<Activity> currentActivity = nullptr;
             ActivityOperation nextOperation;
+            Context* ctx;
         public:
-            ActivityManager();
+            ActivityManager(Context* ctx);
 
             void initialize() override;
             void update(int dt) override;

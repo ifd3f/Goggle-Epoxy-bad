@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cairo.h>
-#include "ssd1306.hpp"
+#include "devices/ssd1306.hpp"
 
 
 using namespace epoxy;

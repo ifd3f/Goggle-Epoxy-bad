@@ -35,10 +35,10 @@ namespace epoxy {
              */
             const CommandSchedulingParam scheduling;
 
-            virtual void initialize() { };
-            virtual void update(int dt) { };
+            virtual void initialize() = default;
+            virtual void update(int dt) = default;
             virtual bool shouldTerminate() { return false; };
-            virtual void terminate() { };
+            virtual void terminate() = default;
 
             void setCommandState(CommandState state);
             CommandState getCommandState();

@@ -16,7 +16,7 @@ namespace epoxy {
         ~Context();
 
         Hardware hw;
-        activity::ActivityManager* activityManager;
+        activities::ActivityManager* activityManager;
         scheduler::Scheduler* scheduler;
         motion::OrientationIntegrator* orientation;
         void run();
