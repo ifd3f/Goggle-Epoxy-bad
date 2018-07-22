@@ -5,6 +5,7 @@
 #include "activity.hpp"
 #include "motion.hpp"
 #include "hardware.hpp"
+#include "Assets.hpp"
 
 
 using namespace epoxy;
@@ -15,6 +16,7 @@ namespace epoxy {
         Context();
         ~Context();
 
+        Assets res;
         Hardware hw;
         activities::ActivityManager* activityManager;
         scheduler::Scheduler* scheduler;

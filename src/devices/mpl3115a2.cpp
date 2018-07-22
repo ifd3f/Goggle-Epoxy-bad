@@ -1,7 +1,7 @@
 #include "mpl3115a2.hpp"
 
 #include <wiringPiI2C.h>
-#include "util.hpp"
+#include "util/util.hpp"
 
 using namespace epoxy::util;
 using namespace epoxy::devices;

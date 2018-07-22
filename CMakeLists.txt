@@ -15,17 +15,20 @@ set(Boost_USE_STATIC_RUNTIME OFF)
 include_directories(
         ./src/
         #${Boost_INCLUDE_DIRS}
-        /usr/include/bin/
         /usr/include/eigen3/
+        /usr/include/pango-1.0/
         /usr/include/cairo/
-        /usr/local/lib/)
+        /usr/include/freetype2/)
 
 link_directories(
-        /usr/local/lib/)
+        /usr/local/lib/
+        /usr/lib/x86_64-linux-gnu)
 
 link_libraries(
         #${Boost_LIBRARIES}
         cairo
+        pango
+        freetype
         crypt
         wiringPi)
 
@@ -55,9 +58,9 @@ add_executable(GoggleEpoxy
         src/motion.hpp
         src/scheduler.cpp
         src/scheduler.hpp
-        src/util.cpp
-        src/util.hpp
-        src/weather.hpp src/activities/blank.cpp src/activities/blank.hpp src/activities/Home_Sensors.cpp src/activities/Home_Sensors.hpp)
+        src/util/util.cpp
+        src/util/util.hpp
+        src/weather.hpp src/activities/blank.cpp src/activities/blank.hpp src/activities/Home_Sensors.cpp src/activities/Home_Sensors.hpp src/Assets.cpp src/Assets.hpp)
 
 add_executable(Test
         src/test.cpp

@@ -4,7 +4,7 @@
 #include <iostream>
 #include <iterator>
 
-#include "util.hpp"
+#include "util/util.hpp"
 
 using namespace epoxy::scheduler;
 
