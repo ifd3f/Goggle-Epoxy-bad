@@ -41,7 +41,7 @@ namespace epoxy {
             ActivityOperation nextOperation;
             Context* ctx;
         public:
-            ActivityManager(Context* ctx);
+            ActivityManager(Context *ctx);
 
             void initialize() override;
             void update(int dt) override;

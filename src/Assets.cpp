@@ -3,20 +3,16 @@
 //
 
 #include <cairo-ft.h>
+#include <pango/pangocairo.h>
+#include <pango/pango-font.h>
 #include "Assets.hpp"
 
 
 epoxy::Assets::Assets() {
-    if (FT_Init_FreeType(&ftLib)) {
-        throw "Could not init freetype";
-    }
-    if (FT_New_Face(ftLib, "scientifica-11.bdf", 0, &scientifica)) {
-        throw "Could not load scientifica-11.bdf";
-    }
-    scientifica_cairo = cairo_ft_font_face_create_for_ft_face(scientifica, 0);
+    scientifica = pango_font_description_from_string("scientifica");
 }
 
 epoxy::Assets::~Assets() {
+    //pango_font_description_free(scientifica);
     delete scientifica;
-    delete scientifica_cairo;
 }

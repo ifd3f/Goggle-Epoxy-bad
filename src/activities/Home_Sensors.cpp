@@ -10,9 +10,11 @@ void activities::Home_Sensors::onResume() {
 
 void activities::Home_Sensors::onStart() {
     cr = ctx->hw.screen->createContext();
+    pr = pango_cairo_create_context(cr);
 }
 
 void activities::Home_Sensors::onStop() {
+    delete pr;
     delete cr;
 }
 
@@ -20,7 +22,7 @@ void activities::Home_Sensors::onUpdate(int dt) {
     auto ori = ctx->orientation->getOrientation();
     double temp = ctx->hw.thm->getTemperature();
 
-    auto proj = ori.toRotationMatrix();
+    auto proj = ori.inverse().toRotationMatrix();
     auto matLat = proj * MAT_LAT;
     auto matLong = proj * MAT_LONG;
 
@@ -47,10 +49,8 @@ void activities::Home_Sensors::onUpdate(int dt) {
         cairo_stroke(cr);
     }
 
-    cairo_set_font_face(cr, ctx->res.scientifica_cairo);
-    cairo_set_font_size(cr, 11);
-    auto scaledFont = cairo_get_scaled_font(cr);
-    cairo_show_text(cr, "asdf");
+    PangoLayout* layout;
+    pango_layout_set_font_description(layout);
 
 }
 

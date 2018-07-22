@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <pango/pangocairo.h>
 #include <activity.hpp>
 #include <Eigen>
 
@@ -8,7 +9,6 @@
 namespace epoxy {
     namespace activities {
         class Home_Sensors : public Activity, public input::InputListener {
-            cairo_t* cr;
             static const int LONG_INC = 15;
             static const int LONG_COUNT = 24;
             static const double LONG_LEN = 0.1;
@@ -25,6 +25,10 @@ namespace epoxy {
             static Eigen::Matrix<double, LONG_COUNT * 2, 4> MAT_LONG;
 
             static void lazyInitMatrices();
+
+            cairo_t* cr;
+            PangoContext *pr;
+
         public:
             Home_Sensors();
             void onStart() override;

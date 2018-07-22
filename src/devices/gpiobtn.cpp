@@ -14,6 +14,7 @@ GPIOButton::GPIOButton(int id, int pin, bool invert): Button(id), pin(pin), inve
 
 void GPIOButton::initialize() {
     pinMode(pin, INPUT);
+    pullUpDnControl(pin, invert ? PUD_UP : PUD_DOWN);
 }
 
 bool GPIOButton::isPressed() {

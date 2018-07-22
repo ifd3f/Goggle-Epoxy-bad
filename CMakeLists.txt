@@ -15,6 +15,8 @@ set(Boost_USE_STATIC_RUNTIME OFF)
 include_directories(
         ./src/
         #${Boost_INCLUDE_DIRS}
+        /usr/local/include/
+        /usr/include/
         /usr/include/eigen3/
         /usr/include/pango-1.0/
         /usr/include/cairo/
@@ -22,6 +24,7 @@ include_directories(
 
 link_directories(
         /usr/local/lib/
+        /usr/lib
         /usr/lib/x86_64-linux-gnu)
 
 link_libraries(
