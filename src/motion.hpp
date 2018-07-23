@@ -22,7 +22,7 @@ namespace epoxy {
 
         class Gyro {
         public:
-            virtual ~Gyro() {};
+            virtual ~Gyro() = default;
             virtual double getX() = 0;
             virtual double getY() = 0;
             virtual double getZ() = 0;
@@ -32,7 +32,8 @@ namespace epoxy {
 
         class VectorOutput {
         public:
-            virtual ~VectorOutput() {};
+            virtual ~VectorOutput() = default;
+            
             virtual double getX() = 0;
             virtual double getY() = 0;
             virtual double getZ() = 0;

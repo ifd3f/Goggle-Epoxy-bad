@@ -17,11 +17,11 @@ namespace epoxy {
         public:
             virtual ~Activity() = default;
             
-            virtual void onStart() {};
-            virtual void onResume() {};
-            virtual void onUpdate(int dt) {};
-            virtual void onSuspend() {};
-            virtual void onStop() {};
+            virtual void onStart();
+            virtual void onResume();
+            virtual void onUpdate(int dt);
+            virtual void onSuspend();
+            virtual void onStop();
 
             friend class ActivityManager;
         };
@@ -50,5 +50,6 @@ namespace epoxy {
             void popActivity();
             void swapActivity(std::shared_ptr<Activity> activity);
         };
+
     }
 }

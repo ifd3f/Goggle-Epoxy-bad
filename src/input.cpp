@@ -81,3 +81,10 @@ void InputManager::update(int dt) {
     }
 }
 
+void InputListener::onInput(EncoderEvent ev) {
+
+}
+
+void InputListener::onInput(ButtonEvent ev) {
+
+}

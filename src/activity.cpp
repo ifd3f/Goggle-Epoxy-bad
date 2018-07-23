@@ -4,6 +4,26 @@
 
 using namespace epoxy::activities;
 
+void Activity::onStart() {
+
+}
+
+void Activity::onResume() {
+
+}
+
+void Activity::onUpdate(int dt) {
+
+}
+
+void Activity::onSuspend() {
+
+}
+
+void Activity::onStop() {
+
+}
+
 ActivityManager::ActivityManager(Context* ctx) {
     this->ctx = ctx;
 }

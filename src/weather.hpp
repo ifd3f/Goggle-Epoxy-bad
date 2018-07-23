@@ -5,19 +5,19 @@ namespace epoxy {
 
         class Barometer {
         public:
-            virtual ~Barometer() {};
+            virtual ~Barometer() = default;
             virtual double getPressure() = 0;
         };
 
         class Altimeter {
         public:
-            virtual ~Altimeter() {};
+            virtual ~Altimeter() = default;
             virtual double getAltitude() = 0;
         };
 
         class Thermometer {
         public:
-            virtual ~Thermometer() {};
+            virtual ~Thermometer() = default;
             virtual double getTemperature() = 0;
         };
 

@@ -43,6 +43,22 @@ void Command::doLoop(long long time) {
     lastExecuted = time;
 }
 
+void Command::initialize() {
+
+}
+
+void Command::update(int dt) {
+
+}
+
+bool Command::shouldTerminate() {
+    return false;
+}
+
+void Command::terminate() {
+
+}
+
 SynchronousScheduler::SynchronousScheduler() = default;
 
 void SynchronousScheduler::addCommand(Command *cmd) {

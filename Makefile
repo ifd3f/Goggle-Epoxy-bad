@@ -22,9 +22,8 @@ INC = \
 	/usr/include/freetype2/
 
 LINK_DIRS = \
-	/usr/lib/x86_64-linux-gnu \
-	/usr/lib \
-	/usr/local/lib
+	/usr/lib/x86_64-linux-gnu/ \
+	/usr/local/lib/
 
 LIB = \
 	cairo \
@@ -35,7 +34,6 @@ LIB = \
 
 # Compiler arguments
 C_ARGS = $(INC:%=-I%) `pkg-config --cflags glib-2.0` -std=c++17 -pedantic -Wall -Wextra -Wno-unused-parameter -g -DBOOST_LOG_DYN_LINK
-C_ARGS_RELEASE = $(INC:%=-I%) -std=c++17 -pedantic -Wall -Wextra -Wno-unused-parameter -DBOOST_LOG_DYN_LINK
 # Linker arguments
 L_ARGS = $(INC:%=-I%) $(LINK_DIRS:%=-L%) $(LIB:%=-l%)
 

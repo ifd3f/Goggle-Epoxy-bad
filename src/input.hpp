@@ -68,8 +68,8 @@ namespace epoxy {
 
         class InputListener {
         public:
-            virtual void onInput(EncoderEvent ev) {};
-            virtual void onInput(ButtonEvent ev) {};
+            virtual void onInput(EncoderEvent ev);
+            virtual void onInput(ButtonEvent ev);
         };
 
         class InputManager : public scheduler::Command {
