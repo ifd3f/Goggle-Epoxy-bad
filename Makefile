@@ -1,5 +1,5 @@
 # Compiler
-CC=g++
+CC=/usr/bin/gcc
 
 NO_DEPS := clean
 MODULES := src
@@ -22,20 +22,23 @@ INC = \
 	/usr/include/freetype2/
 
 LINK_DIRS = \
+	/usr/lib/ \
 	/usr/lib/x86_64-linux-gnu/ \
 	/usr/local/lib/
 
 LIB = \
-	cairo \
-	pango-1.0 \
-	crypt \
 	wiringPi
+
+PKG_CONFIG = \
+	glib-2.0 \
+	cairo \
+	pango
 	
 
 # Compiler arguments
-C_ARGS = $(INC:%=-I%) `pkg-config --cflags glib-2.0` -std=c++17 -pedantic -Wall -Wextra -Wno-unused-parameter -g -DBOOST_LOG_DYN_LINK
+C_ARGS = $(INC:%=-I%) `pkg-config --cflags $(PKG_CONFIG)` -std=c++17 -pedantic -Wall -Wextra -Wno-unused-parameter -g -DBOOST_LOG_DYN_LINK
 # Linker arguments
-L_ARGS = $(INC:%=-I%) $(LINK_DIRS:%=-L%) $(LIB:%=-l%)
+L_ARGS = $(INC:%=-I%) $(LINK_DIRS:%=-L%) `pkg-config --libs $(PKG_CONFIG)`
 
 TARGET = main.out
 .DEFAULT_GOAL := all
@@ -54,7 +57,7 @@ build/:
 
 .PHONY: link-main
 link-main: $(OBJ)
-	$(CC) $(L_ARGS) $(OBJ) -o $(TARGET)
+	$(CC) -o $(TARGET) $(L_ARGS) $(OBJ)
 
 .PHONY: all
 all: link-main

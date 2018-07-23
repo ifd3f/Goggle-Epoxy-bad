@@ -4,8 +4,10 @@
 
 #pragma once
 
+extern "C" {
 #include <pango/pangocairo.h>
 #include <pango/pango-font.h>
+}
 
 namespace epoxy {
     class Assets {

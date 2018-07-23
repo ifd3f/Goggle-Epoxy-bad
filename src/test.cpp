@@ -1,5 +1,7 @@
 #include <iostream>
+extern "C" {
 #include <cairo.h>
+}
 #include "devices/ssd1306.hpp"
 
 

@@ -1,10 +1,9 @@
-//
-// Created by Maxim on 7/21/2018.
-//
-
+extern "C" {
 #include <cairo-ft.h>
 #include <pango/pangocairo.h>
 #include <pango/pango-font.h>
+}
+
 #include "Assets.hpp"
 
 

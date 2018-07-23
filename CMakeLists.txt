@@ -20,6 +20,8 @@ include_directories(
         /usr/include/eigen3/
         /usr/include/pango-1.0/
         /usr/include/cairo/
+        /usr/include/glib-2.0/
+        /usr/lib/x86_64-linux-gnu/glib-2.0/include/
         /usr/include/freetype2/)
 
 link_directories(

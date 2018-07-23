@@ -1,7 +1,10 @@
 #pragma once
 
 
+extern "C" {
 #include <pango/pangocairo.h>
+}
+
 #include <activity.hpp>
 #include <Eigen/Core>
 
@@ -20,11 +23,8 @@ namespace epoxy {
             static_assert(LONG_INC * LONG_COUNT == 360, "Latitude inc * count must equal 360.");
             static_assert(LAT_INC * LAT_COUNT == 360, "Longitude inc * count must equal 360.");
 
-            static bool matrixInitialized;
-            static Eigen::Matrix<double, 4, LAT_COUNT * 2> MAT_LAT;
-            static Eigen::Matrix<double, 4, LONG_COUNT * 2> MAT_LONG;
-
-            static void lazyInitMatrices();
+            Eigen::Matrix<double, 4, LAT_COUNT * 2> MAT_LAT;
+            Eigen::Matrix<double, 4, LONG_COUNT * 2> MAT_LONG;
 
             cairo_t* cr;
             PangoContext *pr;

@@ -1,6 +1,8 @@
 #include <iostream>
 #include <Eigen/Geometry>
+extern "C" {
 #include <cairo.h>
+}
 
 #include "context.hpp"
 

@@ -1,7 +1,10 @@
 #pragma once
 
+extern "C" {
 #include <cairo/cairo.h>
 #include <wiringPiI2C.h>
+}
+
 #include "scheduler.hpp"
 
 
