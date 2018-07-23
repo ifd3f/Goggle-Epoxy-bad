@@ -60,7 +60,7 @@ void InputManager::addEncoder(Encoder* enc) {
     sched->addCommand(ls);
 }
 
-InputManager::InputManager(Scheduler *sched): sched(sched) {
+InputManager::InputManager(scheduler::Scheduler *sched): sched(sched) {
 
 }
 

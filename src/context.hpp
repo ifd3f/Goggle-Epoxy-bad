@@ -1,11 +1,14 @@
 #pragma once
 
-#include <memory>
+#include "declarations.hpp"
+
 #include "scheduler.hpp"
 #include "activity.hpp"
 #include "motion.hpp"
 #include "hardware.hpp"
 #include "Assets.hpp"
+
+#include <memory>
 
 
 using namespace epoxy;

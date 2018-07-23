@@ -13,6 +13,5 @@ epoxy::Assets::Assets() {
 }
 
 epoxy::Assets::~Assets() {
-    //pango_font_description_free(scientifica);
-    delete scientifica;
+    pango_font_description_free(scientifica);
 }

@@ -4,6 +4,7 @@ CC=g++
 NO_DEPS := clean
 MODULES := src
 SRC_NAMES := 
+SRC_DIRS :=
 
 include $(MODULES:%=%/module.mk)
 
@@ -11,24 +12,32 @@ SRC := $(SRC_NAMES:%=%.cpp)
 DEP := $(SRC_NAMES:src/%=.d/%.d)
 OBJ := $(SRC_NAMES:src/%=build/%.o)
 
+INC = \
+	./src/ \
+	/usr/include/ \
+	/usr/include/eigen3/ \
+	/usr/include/cairo/ \
+	/usr/local/include/ \
+	/usr/include/pango-1.0/ \
+	/usr/include/freetype2/
+
+LINK_DIRS = \
+	/usr/lib/x86_64-linux-gnu \
+	/usr/lib \
+	/usr/local/lib
+
 LIB = \
-	boost_system \
-	boost_log \
-	pthread \
 	cairo \
+	pango-1.0 \
 	crypt \
 	wiringPi
-
-INC = \
-	src/ \
-	/usr/include/eigen3/ \
-	/usr/include/cairo/
+	
 
 # Compiler arguments
-C_ARGS = $(INC:%=-I %) -std=c++17 -pedantic -Wall -Wextra -Wno-unused-parameter -g -DBOOST_LOG_DYN_LINK
-C_ARGS_RELEASE = $(INC:%=-I %) -std=c++17 -pedantic -Wall -Wextra -Wno-unused-parameter -DBOOST_LOG_DYN_LINK
+C_ARGS = $(INC:%=-I%) `pkg-config --cflags glib-2.0` -std=c++17 -pedantic -Wall -Wextra -Wno-unused-parameter -g -DBOOST_LOG_DYN_LINK
+C_ARGS_RELEASE = $(INC:%=-I%) -std=c++17 -pedantic -Wall -Wextra -Wno-unused-parameter -DBOOST_LOG_DYN_LINK
 # Linker arguments
-L_ARGS = $(INC:%=-I %) $(LIB:%=-l%)
+L_ARGS = $(INC:%=-I%) $(LINK_DIRS:%=-L%) $(LIB:%=-l%)
 
 TARGET = main.out
 .DEFAULT_GOAL := all
@@ -37,13 +46,13 @@ TARGET = main.out
 	$(CC) $(C_ARGS) src/$*.cpp -MM -MG -MT build/$*.o | sed -e 's@ˆ\(.*\)\.o:@\1.d \1.o:@' > $@
 
 build/%.o: src/%.cpp build/
-	$(CC) $(C_ARGS) -c src/$*.cpp -o $@
+	$(CC) -o $@ $(C_ARGS) -c src/$*.cpp
 
 .d/:
-	mkdir -p .d/ .d/devices/
+	mkdir -p $(SRC_DIRS:%=.d/%)
 
 build/:
-	mkdir -p build/ build/devices/
+	mkdir -p $(SRC_DIRS:%=build/%)
 
 .PHONY: link-main
 link-main: $(OBJ)

@@ -1,7 +1,3 @@
-//
-// Created by Maxim on 7/20/2018.
-//
-
 #include "blank.hpp"
 #include "Home_Sensors.hpp"
 
@@ -10,7 +6,8 @@
 using namespace epoxy::activities;
 
 void Blank::onInput(epoxy::input::ButtonEvent ev) {
-    ctx->activityManager->pushActivity(std::make_shared<auto>(new Home_Sensors()));
+    auto* next = new Home_Sensors;
+    ctx->activityManager->pushActivity(std::shared_ptr<Activity>(static_cast<Activity*>(next)));
 }
 
 void Blank::onStart() {
@@ -24,5 +21,4 @@ void Blank::onResume() {
 }
 
 void Blank::onStop() {
-    delete cr;
 }

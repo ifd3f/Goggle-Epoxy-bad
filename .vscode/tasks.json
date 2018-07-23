@@ -7,7 +7,7 @@
             "label": "build-wsl",
             "type": "shell",
             "command": "bash",
-            "args": ["-c", "make -j16 all"],
+            "args": ["-c", "make -j4 all"],
             "problemMatcher": [
                 "$gcc"
             ],

@@ -19,7 +19,7 @@ Eigen::Vector4d VectorOutput::getVector4() {
     return Eigen::Vector4d(getX(), getY(), getZ(), 1);
 }
 
-Eigen::Quaterniond getOrientation(Eigen::Vector3d down, Eigen::Vector3d north) {
+Eigen::Quaterniond epoxy::motion::getOrientation(Eigen::Vector3d down, Eigen::Vector3d north) {
     down.normalize();
     north.normalize();
     Eigen::Vector3d west = down.cross(north);
@@ -43,7 +43,7 @@ void OrientationIntegrator::calibrate() {
 
 void OrientationIntegrator::update(int dt) {
     auto dr = gyro->getDeltaQuaternion(dt / 1000.0);
-    auto a_hat = getOrientation(accel->getVector(), mag->getVector());
+    auto a_hat = motion::getOrientation(accel->getVector(), mag->getVector());
 
     state = (state * dr).slerp(compensation, a_hat);
 }

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "declarations.hpp"
+
 #include "scheduler.hpp"
 #include "context.hpp"
 
@@ -8,12 +10,10 @@
 
 namespace epoxy {
     namespace activities {
-
-        class ActivityManager;
-
+        
         class Activity {
         protected:
-            Context* ctx;
+            epoxy::Context* ctx;
         public:
             virtual ~Activity() = default;
             

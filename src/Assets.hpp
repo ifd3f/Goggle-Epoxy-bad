@@ -4,7 +4,8 @@
 
 #pragma once
 
-#include <cairo.h>
+#include <pango/pangocairo.h>
+#include <pango/pango-font.h>
 
 namespace epoxy {
     class Assets {

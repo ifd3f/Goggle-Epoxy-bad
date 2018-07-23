@@ -14,15 +14,15 @@ void activities::Home_Sensors::onStart() {
 }
 
 void activities::Home_Sensors::onStop() {
-    delete pr;
-    delete cr;
 }
 
 void activities::Home_Sensors::onUpdate(int dt) {
     auto ori = ctx->orientation->getOrientation();
     double temp = ctx->hw.thm->getTemperature();
 
-    auto proj = ori.inverse().toRotationMatrix();
+    auto proj = Eigen::Affine3d::Identity();
+    proj.rotate(ori);
+
     auto matLat = proj * MAT_LAT;
     auto matLong = proj * MAT_LONG;
 
@@ -50,7 +50,7 @@ void activities::Home_Sensors::onUpdate(int dt) {
     }
 
     PangoLayout* layout;
-    pango_layout_set_font_description(layout);
+    pango_layout_set_font_description(layout, ctx->res.scientifica);
 
 }
 

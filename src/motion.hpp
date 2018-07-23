@@ -18,7 +18,7 @@ namespace epoxy {
     namespace motion {
         using namespace epoxy::motion;
 
-        //Eigen::Quaterniond getOrientation(Eigen::Vector3d down, Eigen::Vector3d north);
+        Eigen::Quaterniond getOrientation(Eigen::Vector3d down, Eigen::Vector3d north);
 
         class Gyro {
         public:

@@ -40,7 +40,10 @@
 			"stack": "cpp",
 			"memory": "cpp",
 			"exception": "cpp",
-			"string": "cpp"
+			"string": "cpp",
+			"bitset": "cpp",
+			"future": "cpp",
+			"optional": "cpp"
 		}
 	}
 }

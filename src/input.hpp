@@ -5,14 +5,12 @@
 #include <memory>
 
 #include "scheduler.hpp"
-#include "context.hpp"
 
-using namespace epoxy::scheduler;
+using namespace epoxy;
 namespace epoxy {
     namespace input {
-        using namespace epoxy::input;
 
-        class Button : public Command {
+        class Button : public scheduler::Command {
         public:
             Button(int id);
             virtual ~Button() = default;
@@ -20,7 +18,7 @@ namespace epoxy {
             virtual bool isPressed() = 0;
         };
 
-        class Encoder : public Command {
+        class Encoder : public scheduler::Command {
         public:
             explicit Encoder(int id);
             virtual ~Encoder() = default;
@@ -48,9 +46,9 @@ namespace epoxy {
             signed char delta;
         };
         
-        class ButtonQueueListener : public Command {
-            std::queue<ButtonEvent>* queue;
+        class ButtonQueueListener : public scheduler::Command {
             Button* btn;
+            std::queue<ButtonEvent>* queue;
             bool last;
         public:
             ButtonQueueListener(Button* btn, std::queue<ButtonEvent>* queue);
@@ -58,9 +56,9 @@ namespace epoxy {
             void terminate() override;
         };
 
-        class EncoderQueueListener : public Command {
-            std::queue<EncoderEvent>* queue;
+        class EncoderQueueListener : public scheduler::Command {
             Encoder* enc;
+            std::queue<EncoderEvent>* queue;
             long last;
         public:
             EncoderQueueListener(Encoder* enc, std::queue<EncoderEvent>* queue);
@@ -70,17 +68,17 @@ namespace epoxy {
 
         class InputListener {
         public:
-            virtual void onInput(EncoderEvent ev) = 0;
-            virtual void onInput(ButtonEvent ev) = 0;
+            virtual void onInput(EncoderEvent ev) {};
+            virtual void onInput(ButtonEvent ev) {};
         };
 
         class InputManager : public scheduler::Command {
             std::queue<EncoderEvent> eQueue;
             std::queue<ButtonEvent> bQueue;
-            Scheduler* sched;
+            scheduler::Scheduler* sched;
             InputListener* listener;
         public:
-            InputManager(Scheduler* sched);
+            InputManager(scheduler::Scheduler* sched);
 
             void update(int dt) override;
 
